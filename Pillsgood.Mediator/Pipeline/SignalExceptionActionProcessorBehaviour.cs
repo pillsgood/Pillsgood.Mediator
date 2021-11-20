@@ -4,6 +4,13 @@ using Pillsgood.Mediator.Internal;
 
 namespace Pillsgood.Mediator.Pipeline;
 
+/// <summary>
+/// Behavior for executing all <see cref="ISignalExceptionHandler{TSignal,TResponse,TException}"/>
+///     or <see cref="ISignalExceptionHandler{TSignal,TResponse}"/> instances
+///     after an exception is thrown by the following pipeline steps
+/// </summary>
+/// <typeparam name="TSignal">Signal type</typeparam>
+/// <typeparam name="TResponse">Response type</typeparam>
 public class SignalExceptionActionProcessorBehaviour<TSignal, TResponse> : IPipelineBehaviour<TSignal, TResponse>
     where TSignal : ISignal<TResponse>
 {

@@ -1,5 +1,10 @@
 namespace Pillsgood.Mediator.Pipeline;
 
+/// <summary>
+/// Behavior for executing all <see cref="ISignalPreProcessor{TSignal}"/> instances before handling a signal
+/// </summary>
+/// <typeparam name="TSignal">Signal type</typeparam>
+/// <typeparam name="TResponse">Response type</typeparam>
 public class SignalPreProcessorBehaviour<TSignal, TResponse> : IPipelineBehaviour<TSignal, TResponse>
     where TSignal : ISignal<TResponse>
 {
