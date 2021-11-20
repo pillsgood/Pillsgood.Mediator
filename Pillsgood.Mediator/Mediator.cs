@@ -28,9 +28,9 @@ public class Mediator : IMediator
     public Mediator(ServiceFactory serviceFactory, [Optional] ISender? sender, [Optional] IPublisher? publisher)
     {
         _sender = sender ?? new Sender(serviceFactory);
-        _publisher = publisher ?? new PublisherBase(serviceFactory);
+        _publisher = publisher ?? new CompositePublisher(serviceFactory);
     }
-    
+
     /// <summary>
     /// Initializes a new instance of the <see cref="Mediator"/> class.
     /// Optional implementations fallback to default implementations when null.
@@ -65,5 +65,20 @@ public class Mediator : IMediator
         where TNotification : INotification
     {
         return _publisher.Publish(notification, cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public Task Publish(object notification, PublishStrategy strategy, CancellationToken cancellationToken = default)
+    {
+        return _publisher.Publish(notification, strategy, cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public Task Publish<TNotification>(
+        TNotification notification,
+        PublishStrategy strategy,
+        CancellationToken cancellationToken = default) where TNotification : INotification
+    {
+        return _publisher.Publish(notification, strategy, cancellationToken);
     }
 }

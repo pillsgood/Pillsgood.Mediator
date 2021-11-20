@@ -42,6 +42,21 @@ public class PublisherBase : IPublisher
         return Publish((INotification) notification, cancellationToken);
     }
 
+    /// <inheritdoc />
+    public Task Publish(object notification, PublishStrategy strategy, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task Publish<TNotification>(
+        TNotification notification,
+        PublishStrategy strategy,
+        CancellationToken cancellationToken = default) where TNotification : INotification
+    {
+        throw new NotImplementedException();
+    }
+
     public Task Publish(object notification, CancellationToken cancellationToken = default)
     {
         return notification switch
