@@ -3,15 +3,41 @@ using Pillsgood.Mediator.Wrappers;
 
 namespace Pillsgood.Mediator;
 
+/// <summary>
+/// Default mediator implementation relying on single- and multi instance delegates for resolving handlers.
+/// </summary>
 public class Mediator : IMediator
 {
     private readonly ServiceFactory _serviceFactory;
+    
     private static readonly ConcurrentDictionary<Type, SignalHandlerBase> _signalHandlers = new();
     private static readonly ConcurrentDictionary<Type, NotificationHandlerWrapper> _notificationHandler = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Mediator"/> class.
+    /// </summary>
+    /// <param name="serviceFactory">The single instance factory.</param>
     public Mediator(ServiceFactory serviceFactory)
     {
         _serviceFactory = serviceFactory;
+    }
+
+    /// <summary>
+    /// Override in a derived class to control how the tasks are awaited. By default the implementation is a foreach and await of each handler
+    /// </summary>
+    /// <param name="handlers">Enumerable of tasks representing invoking each notification handler</param>
+    /// <param name="notification">The notification being published</param>
+    /// <param name="cancellationToken">The cancellation token</param>
+    /// <returns>A task representing invoking all handlers</returns>
+    protected virtual async Task PublishCore(
+        IEnumerable<HandleNotification> handlers,
+        INotification notification,
+        CancellationToken cancellationToken = default)
+    {
+        foreach (var handler in handlers)
+        {
+            await handler(notification, cancellationToken).ConfigureAwait(false);
+        }
     }
 
     public Task<TResponse> Send<TResponse>(ISignal<TResponse> signal, CancellationToken cancellationToken = default)
@@ -80,17 +106,6 @@ public class Mediator : IMediator
             INotification instance => PublishNotification(instance, cancellationToken),
             _ => throw new ArgumentException($"{nameof(notification)} does not implement {nameof(INotification)}")
         };
-    }
-
-    protected virtual async Task PublishCore(
-        IEnumerable<HandleNotification> handlers,
-        INotification notification,
-        CancellationToken cancellationToken = default)
-    {
-        foreach (var handler in handlers)
-        {
-            await handler(notification, cancellationToken).ConfigureAwait(false);
-        }
     }
 
     private Task PublishNotification(INotification notification, CancellationToken cancellationToken = default)
