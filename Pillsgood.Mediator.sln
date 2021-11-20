@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pillsgood.Mediator", "Pillsgood.Mediator\Pillsgood.Mediator.csproj", "{42700D43-B1B0-4EA4-B5CD-CA12D9EECB38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pillsgood.Mediator.Tests", "Pillsgood.Mediator.Tests\Pillsgood.Mediator.Tests.csproj", "{70B17A1D-B450-44FF-AAEE-7BA1A6EEF79F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42700D43-B1B0-4EA4-B5CD-CA12D9EECB38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42700D43-B1B0-4EA4-B5CD-CA12D9EECB38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42700D43-B1B0-4EA4-B5CD-CA12D9EECB38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42700D43-B1B0-4EA4-B5CD-CA12D9EECB38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B17A1D-B450-44FF-AAEE-7BA1A6EEF79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B17A1D-B450-44FF-AAEE-7BA1A6EEF79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B17A1D-B450-44FF-AAEE-7BA1A6EEF79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B17A1D-B450-44FF-AAEE-7BA1A6EEF79F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
