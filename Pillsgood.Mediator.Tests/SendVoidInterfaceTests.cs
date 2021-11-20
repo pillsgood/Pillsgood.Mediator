@@ -46,7 +46,7 @@ namespace Pillsgood.Mediator.Tests
                 });
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => ctx.GetInstance);
                 cfg.For<TextWriter>().Use(writer);
-                cfg.For<IMediator>().Use<Mediator>();
+                cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
             });
 
 

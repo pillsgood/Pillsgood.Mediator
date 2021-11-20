@@ -39,7 +39,7 @@ namespace Pillsgood.Mediator.Tests
                     scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
                 });
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-                cfg.For<IMediator>().Use<Mediator>();
+                cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
             });
 
             var mediator = container.GetInstance<IMediator>();
@@ -62,7 +62,7 @@ namespace Pillsgood.Mediator.Tests
                     scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
                 });
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => ctx.GetInstance);
-                cfg.For<IMediator>().Use<Mediator>();
+                cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
             });
 
             var mediator = container.GetInstance<IMediator>();
@@ -87,7 +87,7 @@ namespace Pillsgood.Mediator.Tests
                     scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
                 });
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-                cfg.For<ISender>().Use<Mediator>();
+                cfg.For<ISender>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
             });
 
             var mediator = container.GetInstance<ISender>();

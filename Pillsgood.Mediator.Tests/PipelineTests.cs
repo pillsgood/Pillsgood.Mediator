@@ -213,7 +213,7 @@ namespace Pillsgood.Mediator.Tests
                 cfg.For<IPipelineBehaviour<Ping, Pong>>().Add<OuterBehaviour>();
                 cfg.For<IPipelineBehaviour<Ping, Pong>>().Add<InnerBehaviour>();
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-                cfg.For<IMediator>().Use<Mediator>();
+                cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
             });
 
             var mediator = container.GetInstance<IMediator>();
@@ -251,7 +251,7 @@ namespace Pillsgood.Mediator.Tests
                 cfg.For(typeof(IPipelineBehaviour<,>)).Add(typeof(InnerBehaviour<,>));
 
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-                cfg.For<IMediator>().Use<Mediator>();
+                cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
             });
 
             container.GetAllInstances<IPipelineBehaviour<Ping, Pong>>();
@@ -292,7 +292,7 @@ namespace Pillsgood.Mediator.Tests
                 cfg.For(typeof(IPipelineBehaviour<,>)).Add(typeof(ConstrainedBehaviour<,>));
 
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-                cfg.For<IMediator>().Use<Mediator>();
+                cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
             });
 
             container.GetAllInstances<IPipelineBehaviour<Ping, Pong>>();
@@ -350,7 +350,7 @@ namespace Pillsgood.Mediator.Tests
                 cfg.For(typeof(IPipelineBehaviour<Ping, Pong>)).Add(typeof(ConcreteBehaviour));
 
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-                cfg.For<IMediator>().Use<Mediator>();
+                cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
             });
 
             container.GetAllInstances<IPipelineBehaviour<Ping, Pong>>();

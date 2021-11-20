@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using Pillsgood.Mediator.Publishers;
 using Pillsgood.Mediator.Wrappers;
 using Shouldly;
 using StructureMap;
@@ -64,7 +65,7 @@ namespace Pillsgood.Mediator.Tests
                     scanner.AddAllTypesOf(typeof(INotificationHandler<>));
                 });
                 cfg.For<TextWriter>().Use(writer);
-                cfg.For<IMediator>().Use<Mediator>();
+                cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
             });
 
@@ -93,7 +94,7 @@ namespace Pillsgood.Mediator.Tests
                     scanner.AddAllTypesOf(typeof(INotificationHandler<>));
                 });
                 cfg.For<TextWriter>().Use(writer);
-                cfg.For<IMediator>().Use<Mediator>();
+                cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
             });
 
@@ -107,9 +108,9 @@ namespace Pillsgood.Mediator.Tests
             result.ShouldContain("Ping Pung");
         }
 
-        public class SequentialMediator : Mediator
+        public class SequentialPublisher : PublisherBase
         {
-            public SequentialMediator(ServiceFactory serviceFactory)
+            public SequentialPublisher(ServiceFactory serviceFactory)
                 : base(serviceFactory)
             {
             }
@@ -142,7 +143,11 @@ namespace Pillsgood.Mediator.Tests
                     scanner.AddAllTypesOf(typeof(INotificationHandler<>));
                 });
                 cfg.For<TextWriter>().Use(writer);
-                cfg.For<IMediator>().Use<SequentialMediator>();
+                cfg.For<IPublisher>().Use<SequentialPublisher>();
+                cfg.For<IMediator>()
+                    .Use(nameof(Mediator), context =>
+                        new Mediator(context.GetInstance<ServiceFactory>(),
+                            publisher: context.GetInstance<IPublisher>()));
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
             });
 
@@ -171,7 +176,11 @@ namespace Pillsgood.Mediator.Tests
                     scanner.AddAllTypesOf(typeof(INotificationHandler<>));
                 });
                 cfg.For<TextWriter>().Use(writer);
-                cfg.For<IMediator>().Use<SequentialMediator>();
+                cfg.For<IPublisher>().Use<SequentialPublisher>();
+                cfg.For<IMediator>()
+                    .Use(nameof(Mediator), context =>
+                        new Mediator(context.GetInstance<ServiceFactory>(),
+                            publisher: context.GetInstance<IPublisher>()));
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
             });
 
@@ -201,7 +210,7 @@ namespace Pillsgood.Mediator.Tests
                     scanner.AddAllTypesOf(typeof(INotificationHandler<>));
                 });
                 cfg.For<TextWriter>().Use(writer);
-                cfg.For<IPublisher>().Use<Mediator>();
+                cfg.For<IPublisher>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
             });
 

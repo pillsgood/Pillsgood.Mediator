@@ -99,7 +99,7 @@ namespace Pillsgood.Mediator.Tests
                     scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
                 });
                 cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => ctx.GetInstance);
-                cfg.For<IMediator>().Use<Mediator>();
+                cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
             });
 
             _mediator = container.GetInstance<IMediator>();

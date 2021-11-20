@@ -73,7 +73,8 @@ public class ExceptionTests
         var container = new Container(cfg =>
         {
             cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => ctx.GetInstance);
-            cfg.For<IMediator>().Use<Mediator>();
+            cfg.For<IMediator>().Use<Mediator>()
+                .SelectConstructor(() => new Mediator(default!));
         });
         _mediator = container.GetInstance<IMediator>();
     }
@@ -147,7 +148,7 @@ public class ExceptionTests
                 scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
             });
             cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-            cfg.For<IMediator>().Use<Mediator>();
+            cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
         });
         var mediator = container.GetInstance<IMediator>();
 
@@ -169,7 +170,7 @@ public class ExceptionTests
                 scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
             });
             cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-            cfg.For<IMediator>().Use<Mediator>();
+            cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
         });
         var mediator = container.GetInstance<IMediator>();
 
@@ -191,7 +192,7 @@ public class ExceptionTests
                 scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
             });
             cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-            cfg.For<IMediator>().Use<Mediator>();
+            cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
         });
         var mediator = container.GetInstance<IMediator>();
 
@@ -213,7 +214,7 @@ public class ExceptionTests
                 scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
             });
             cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-            cfg.For<IMediator>().Use<Mediator>();
+            cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
         });
         var mediator = container.GetInstance<IMediator>();
 
@@ -235,7 +236,8 @@ public class ExceptionTests
                 scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
             });
             cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-            cfg.For<IMediator>().Use<Mediator>();
+            cfg.For<IMediator>().Use<Mediator>()
+                .SelectConstructor(() => new Mediator(default!));
         });
         var mediator = container.GetInstance<IMediator>();
 
@@ -269,7 +271,7 @@ public class ExceptionTests
                 scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
             });
             cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-            cfg.For<IMediator>().Use<Mediator>();
+            cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
         });
         var mediator = container.GetInstance<IMediator>();
 
@@ -291,7 +293,7 @@ public class ExceptionTests
                 scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
             });
             cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-            cfg.For<IMediator>().Use<Mediator>();
+            cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
         });
         var mediator = container.GetInstance<IMediator>();
 
@@ -319,7 +321,7 @@ public class ExceptionTests
                 scanner.AddAllTypesOf(typeof(ISignalHandler<,>));
             });
             cfg.For<ServiceFactory>().Use<ServiceFactory>(ctx => t => ctx.GetInstance(t));
-            cfg.For<IMediator>().Use<Mediator>();
+            cfg.For<IMediator>().Use<Mediator>().SelectConstructor(() => new Mediator(default!));
         });
         var mediator = container.GetInstance<IMediator>();
 
